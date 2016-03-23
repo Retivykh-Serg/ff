@@ -1,0 +1,37 @@
+.hidden {display: none;}
+.inline {display: inline-block;}
+.error {border: 1px solid red !important;}
+.clear {clear: both;}
+.warning { font-size: 12px;}
+
+p {margin: 0px !important}
+h1,h2,h3 {margin-top: 10px !important}
+header {background-color: #cde;padding: 15px;font-size: 18px;font-weight: bold;}
+aside {float: left;}
+
+#exForm {width: 400px; padding: 7px; margin-top: 7px; border: 1px solid #ddd; border-radius: 3px;}
+#exForm label {width: 100px;}
+#exForm .weekEx {width: 280px; min-height: 25px; padding: 3px; display: inline-block; border: 1px solid #ddd; border-radius: 2px;vertical-align: middle; margin-bottom: 5px;}
+
+#user {text-decoration: underline;cursor: pointer;}
+
+#userForm { margin-left: 10px;}
+#userForm label {font-weight: 400;}
+
+#datepicker { width: 400px;}
+
+#dayEx {margin: 2px; border: 1px solid #ddd; border-radius: 3px; margin-left: 405px; padding: 5px;font-size: 18px}
+#listExContainer{position: absolute; display: none; width: 100%; height: 580px; background-color: rgba(200, 200,200, 0.7); padding: 50px 0 0 50%; z-index:100}
+#listEx {position: absolute; width: 310px; margin-left: -150px; border: 1px solid #ccc; border-radius: 2px; padding: 5px; background-color: #eee}
+#listEx h3 {text-align: center}
+#listEx p {font-style: italic;text-align: center;}
+#listEx label {margin-left: 15px; font-size: 16px;}
+#listEx label input[type=checkbox] {margin-right: 4px;}
+#listEx #btnListSave {margin-top: 5px;}
+
+#detailContainer {padding-left: 30px}
+#detailContainer .leftCol { width: 165px; margin-right: 10px; font-weight: 400}
+#detailContainer input[type=text] { width: 40px; padding-left: 2px}
+
+#historyEx {margin: 2px; border: 1px solid #ddd; border-radius: 3px; margin-left: 405px; padding: 5px;font-size: 18px}
+#historyContainer {margin-right: 10px; font-weight: 400; font-size: 14px}
