@@ -1,22 +1,29 @@
 html, body {height: 100%}
 
-.color-0 {background-color: #3283C2}
-.color-1 {background-color: #52ADAE}
-.color-2 {background-color: #78A53C}
-.color-3 {background-color: #834D98}
-.color-4 {background-color: #93836A}
-.color-5 {background-color: #AE6E4A}
+.color-0 {background-color: #3283C2} /* lightblue */
+.color-1 {background-color: #52ADAE} /* #darkblue */
+/* TODO pick and sistematize */
+.color-2 {background-color: #78A53C} /* green */
+.color-3 {background-color: #834D98} /* purple-red */
+.color-4 {background-color: #93836A} /* #gray */
+.color-5 {background-color: #AE6E4A} /* purple-blue */
 .color-6 {background-color: #BD377C}
-.color-7 {background-color: #DD9728}
+.color-7 {background-color: #F07F5F}
+.color-8 {background-color: #DD9728}
 
-.main {color: #EEE8EC; height: 100%; position: relative; border: 5px solid #EEE8EC; text-align: center}
-.main > div {height: 100%;}
-.main > div > div {position: relative; padding: 10% 3%}
-#fant-name {color: #FDDB6D; font-size: 12vmin}
-#fant-text {color: #EEECEC; font-size: 8vmin}
+#main {color: #EEE8EC; height: 100%; position: relative; border: 5px solid #EEE8EC; text-align: center}
+#main > div {height: 100%}
+#main > div > div {position: relative;}
+.title {color: #FDDB6D; font-size: 12vmin}
+.text {color: #EEECEC; font-size: 8vmin}
 #btn-wrapper {color: #FCFEFF;  position: fixed; bottom: 0%; width: 100%; background: #EEE8EC}
-#btn-wrapper div {cursor: pointer; font-size: 10vmin; border: 5px solid #EEE8EC; width: 50%; text-align: center; display: inline-block}
-#btn-win {float: right;}
+#btn-wrapper div {cursor: pointer; font-size: 8vmin; border: 5px solid #EEE8EC; width: 50%; text-align: center; display: inline-block}
+#btn-win, #btn-start-game {float: right;}
+
+#start-gamer-form {padding-top: 5%; padding-bottom: 10%}
+#start-gamer-form label {font-size: 4vmin}
+#start-gamer-form .form-control {font-size: 4vmin; height: auto}
+#start-gamer-form .form-group {margin-left: 0; margin-right: 0}
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
