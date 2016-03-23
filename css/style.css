@@ -1,37 +1,29 @@
-.hidden {display: none;}
-.inline {display: inline-block;}
-.error {border: 1px solid red !important;}
-.clear {clear: both;}
-.warning { font-size: 12px;}
+html, body {height: 100%}
 
-p {margin: 0px !important}
-h1,h2,h3 {margin-top: 10px !important}
-header {background-color: #cde;padding: 15px;font-size: 18px;font-weight: bold;}
-aside {float: left;}
+.color-0 {background-color: #3283C2}
+.color-1 {background-color: #52ADAE}
+.color-2 {background-color: #78A53C}
+.color-3 {background-color: #834D98}
+.color-4 {background-color: #93836A}
+.color-5 {background-color: #AE6E4A}
+.color-6 {background-color: #BD377C}
+.color-7 {background-color: #DD9728}
 
-#exForm {width: 400px; padding: 7px; margin-top: 7px; border: 1px solid #ddd; border-radius: 3px;}
-#exForm label {width: 100px;}
-#exForm .weekEx {width: 280px; min-height: 25px; padding: 3px; display: inline-block; border: 1px solid #ddd; border-radius: 2px;vertical-align: middle; margin-bottom: 5px;}
+.main {color: #EEE8EC; height: 100%; position: relative; border: 5px solid #EEE8EC; text-align: center}
+.main > div {height: 100%;}
+.main > div > div {position: relative; padding: 10% 3%}
+#fant-name {color: #FDDB6D; font-size: 12vmin}
+#fant-text {color: #EEECEC; font-size: 8vmin}
+#btn-wrapper {color: #FCFEFF;  position: fixed; bottom: 0%; width: 100%; background: #EEE8EC}
+#btn-wrapper div {cursor: pointer; font-size: 10vmin; border: 5px solid #EEE8EC; width: 50%; text-align: center; display: inline-block}
+#btn-win {float: right;}
 
-#user {text-decoration: underline;cursor: pointer;}
-
-#userForm { margin-left: 10px;}
-#userForm label {font-weight: 400;}
-
-#datepicker { width: 400px;}
-
-#dayEx {margin: 2px; border: 1px solid #ddd; border-radius: 3px; margin-left: 405px; padding: 5px;font-size: 18px}
-#listExContainer{position: absolute; display: none; width: 100%; height: 580px; background-color: rgba(200, 200,200, 0.7); padding: 50px 0 0 50%; z-index:100}
-#listEx {position: absolute; width: 310px; margin-left: -150px; border: 1px solid #ccc; border-radius: 2px; padding: 5px; background-color: #eee}
-#listEx h3 {text-align: center}
-#listEx p {font-style: italic;text-align: center;}
-#listEx label {margin-left: 15px; font-size: 16px;}
-#listEx label input[type=checkbox] {margin-right: 4px;}
-#listEx #btnListSave {margin-top: 5px;}
-
-#detailContainer {padding-left: 30px}
-#detailContainer .leftCol { width: 165px; margin-right: 10px; font-weight: 400}
-#detailContainer input[type=text] { width: 40px; padding-left: 2px}
-
-#historyEx {margin: 2px; border: 1px solid #ddd; border-radius: 3px; margin-left: 405px; padding: 5px;font-size: 18px}
-#historyContainer {margin-right: 10px; font-weight: 400; font-size: 14px}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
