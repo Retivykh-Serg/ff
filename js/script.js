@@ -1,9 +1,11 @@
+var num_colors = 4
+
 function randomInt(max) {
 	return Math.floor(Math.random() * max);
 };
 
 function prepareUsers(num) {
-	$('#main > div').prepend('<div class="color-0"><form class="form-horizontal" id="start-gamer-form"></form></div>');
+	$('#aligner').prepend('<div id="gamers" class="color-main"><form class="form-horizontal" id="start-gamer-form"></form></div>');
 	$('#btn-add-gamer').attr('data-next-id', num);
 	for (var i=0; i<num; i++) {
 		$('#start-gamer-form').append(startUserHtml(i));
@@ -11,12 +13,12 @@ function prepareUsers(num) {
 }
 
 function startUserHtml(id) {
-	return '<div class="form-group"><label class="col-xs-3 control-label">Игрок ' + (id+1) + '</label><div class="col-xs-8">' +
+	return '<div class="form-group"><label class="col-xs-4 control-label">Игрок ' + (id+1) + '</label><div class="col-xs-7">' +
 			  '<input type="text" id="gamer' + id +'" class="form-control" placeholder="Введите имя игрока"></div></div>'
 }
 
 function setFant(fant) {
-	$('#main > div').removeClass().addClass('color-'+randomInt(9))
+	$('#main').removeClass().addClass('color-'+randomInt(num_colors))
 	$('#fant-name').text(fant.name);
 	$('#fant-text').text(fant.text);
 };
@@ -52,17 +54,19 @@ $(document).ready(function() {
 		});
 	$('#btn-start-game')
 		.on('click', function() {
+			$('#aligner').removeClass().addClass('aligner-tasks')
+				.height($('#main').height()-$('#btn-wrapper').height());
 			$('#start-gamer-form').parent().remove();
-			$('#main > div > div').show();
+			$('#task').show();
 			$('#btn-start-game, #btn-add-gamer').remove();
 			$('#btn-win, #btn-fail').removeClass('hidden');
 			game.nextFant();
 		})
 	$('#btn-win')
 		.on('click', function() {game.nextFant()})
-		.on('touchstart mousedown', function() {$(this).removeClass().addClass('color-0')})
-		.on('touchend mouseup', function() {$(this).removeClass().addClass('color-1')});
+		.on('touchstart mousedown', function() {$(this).removeClass().addClass('color-win-pressed')})
+		.on('touchend mouseup', function() {$(this).removeClass().addClass('color-win')});
 	$('#btn-fail')
-		.on('touchstart mousedown', function() {$(this).removeClass().addClass('color-6')})
-		.on('touchend mouseup', function() {$(this).removeClass().addClass('color-7')});
+		.on('touchstart mousedown', function() {$(this).removeClass().addClass('color-fail-pressed')})
+		.on('touchend mouseup', function() {$(this).removeClass().addClass('color-fail')});
 });

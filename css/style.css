@@ -1,29 +1,33 @@
 html, body {height: 100%}
 
-.color-0 {background-color: #3283C2} /* lightblue */
-.color-1 {background-color: #52ADAE} /* #darkblue */
-/* TODO pick and sistematize */
-.color-2 {background-color: #78A53C} /* green */
-.color-3 {background-color: #834D98} /* purple-red */
-.color-4 {background-color: #93836A} /* #gray */
-.color-5 {background-color: #AE6E4A} /* purple-blue */
-.color-6 {background-color: #BD377C}
-.color-7 {background-color: #F07F5F}
-.color-8 {background-color: #DD9728}
+.color-main {background-color: #3283C2} /* lightblue */
+.color-add-gamer {background-color: #59A2DA} 
+.color-start-game {background-color: #3A7CAF} 
+.color-win {background-color: #4063D6}
+.color-win-pressed {background-color: #2C4DB8} 
+.color-fail {background-color: #FF5136} 
+.color-fail-pressed {background-color: #DB3E25} 
 
-#main {color: #EEE8EC; height: 100%; position: relative; border: 5px solid #EEE8EC; text-align: center}
-#main > div {height: 100%}
-#main > div > div {position: relative;}
-.title {color: #FDDB6D; font-size: 12vmin}
-.text {color: #EEECEC; font-size: 8vmin}
+/* TODO pick and sistematize */
+.color-0 {background-color: #DD9728} /* golden */
+.color-1 {background-color: #3283C2} /* skylightblue*/
+.color-2 {background-color: #78A53C} /* green */
+.color-3 {background-color: #834D98} /* magenta (purple-gray) */
+
+#main {color: #EEE8EC; height: 100%; position: relative; border: 1vmin solid #EEE8EC; border-bottom: 0px; text-align: center}
+.aligner-gamers{height: auto; min-height: 100%}
+.aligner-tasks {display: flex; align-items: center; justify-content: center;}
+#task {position: relative; width: 90%; margin-top: -5vmin;}
+#gamers {padding-bottom: 11vmin; padding-top: 5vmin}
+.title {color: #FDDB6D; font-size: 11vmin; text-shadow: 1vmin 1vmin 2vmin #8D6B1D}
+.text {color: #EEECEC; font-size: 8vmin; text-shadow: 0.5vmin 0.5vmin 1vmin #555555}
 #btn-wrapper {color: #FCFEFF;  position: fixed; bottom: 0%; width: 100%; background: #EEE8EC}
-#btn-wrapper div {cursor: pointer; font-size: 8vmin; border: 5px solid #EEE8EC; width: 50%; text-align: center; display: inline-block}
+#btn-wrapper div {cursor: pointer; font-size: 8vmin; border: 1vmin solid #EEE8EC; width: 50%; text-align: center; display: inline-block}
 #btn-win, #btn-start-game {float: right;}
 
-#start-gamer-form {padding-top: 5%; padding-bottom: 10%}
 #start-gamer-form label {font-size: 4vmin}
-#start-gamer-form .form-control {font-size: 4vmin; height: auto}
-#start-gamer-form .form-group {margin-left: 0; margin-right: 0}
+#start-gamer-form .form-control {font-size: 4vmin; height: auto; border-radius: 0}
+#start-gamer-form .form-group {margin-left: 0; margin-right: 0; text-align: right}
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
