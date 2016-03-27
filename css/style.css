@@ -1,5 +1,6 @@
 html, body {height: 100%}
 
+.color-back {background-color: white}
 .color-main {background-color: #3283C2} /* lightblue */
 .color-add-gamer {background-color: #59A2DA} 
 .color-start-game {background-color: #3A7CAF} 
@@ -14,16 +15,24 @@ html, body {height: 100%}
 .color-2 {background-color: #78A53C} /* green */
 .color-3 {background-color: #834D98} /* magenta (purple-gray) */
 
+.text-color-0 {color: #DD9728} /* golden */
+.text-color-1 {color: #3283C2} /* skylightblue*/
+.text-color-2 {color: #78A53C} /* green */
+.text-color-3 {color: #834D98} /* magenta (purple-gray) */
+
 #main {color: #EEE8EC; height: 100%; position: relative; border: 1vmin solid #EEE8EC; border-bottom: 0px; text-align: center}
 .aligner-gamers{height: auto; min-height: 100%}
 .aligner-tasks {display: flex; align-items: center; justify-content: center;}
-#task {position: relative; width: 90%; margin-top: -5vmin;}
+#task, #prepare {position: relative; width: 90%; margin-top: -5vmin;}
 #gamers {padding-bottom: 11vmin; padding-top: 5vmin}
-.title {color: #FDDB6D; font-size: 11vmin; text-shadow: 1vmin 1vmin 2vmin #8D6B1D}
+.title {color: #FDDB6D; font-size: 11vmin; text-shadow: 1vmin 1vmin 1vmin #8D6B1D}
 .text {color: #EEECEC; font-size: 8vmin; text-shadow: 0.5vmin 0.5vmin 1vmin #555555}
+.text-prepare {font-size: 9vmin; text-shadow: 0.3vmin 0.3vmin 0.5vmin #BBBBBB}
+.text-inf {color: #FFCC35; font-size: 6vmin; text-shadow: 0.5vmin 0.5vmin 1vmin #555555}
 #btn-wrapper {color: #FCFEFF;  position: fixed; bottom: 0%; width: 100%; background: #EEE8EC}
 #btn-wrapper div {cursor: pointer; font-size: 8vmin; border: 1vmin solid #EEE8EC; width: 50%; text-align: center; display: inline-block}
 #btn-win, #btn-start-game {float: right;}
+#btn-user {width: 100% !important}
 
 #start-gamer-form label {font-size: 4vmin}
 #start-gamer-form .form-control {font-size: 4vmin; height: auto; border-radius: 0}
@@ -38,3 +47,4 @@ html, body {height: 100%}
   user-select: none;           /* non-prefixed version, currently
                                   not supported by any browser */
 }
+.hidden {display: none}
