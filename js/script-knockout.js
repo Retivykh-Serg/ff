@@ -1,5 +1,14 @@
-function randomInt(max) {
-    return Math.floor(Math.random() * max);
+ko.observable.fn.increment = function (value) {
+    this(this() + (value || 1));
+};
+
+function randomInt(max, except=null) {
+    var res;
+    do {
+        res = Math.floor(Math.random() * max);
+    }
+    while(res == except);
+    return res;
 };
 
 function getRandomColorId() {
@@ -25,19 +34,30 @@ function greet(name) {
 
 function Gamer(name) {
     this.name = name;
-    this.wins = ko.observable(0);
-    this.statuses = ko.observableArray([]);
+    this.wins = ko.observable(0);;
+    this.status = ko.observableArray([]);
 };
 
+function Status(text, rounds) {
+    this.text = text;
+    this.rounds = rounds;
+    this.tick = function() {this.rounds--};
+}
 
 function gameModel() {
     var self = this;
 
     self.tasks = [];
+    self.fails = []
     self.step = ko.observable('start'); // start, wait, task, win, fail
     self.gamers = ko.observableArray();
     self.activeTask = ko.observable();
-    self.activeGamer = ko.observable();
+    self.activeFail = ko.observable();
+    self.activeGamerId = ko.observable();
+
+    self.activeGamerName = ko.pureComputed(function() {
+        return self.gamers()[self.activeGamerId()].name;
+    }, self);
 
     self.colorId = ko.observable();
     self.colorClass = ko.computed(function() {
@@ -47,27 +67,51 @@ function gameModel() {
         return 'text-color-' + this.colorId();
     }, self);
     self.alignerClass = ko.computed(function() {
-        return 'color-' + (self.step() == 'wait' ? 'back' : this.colorId());
+        id = this.colorId();
+        if (self.step() == 'wait') id = 'back';
+        if (self.step() == 'fail') id = 'fail';
+        return 'color-' + id;
     }, self);
 
-    self.iAmGamer = ko.computed(function() {
-        if (self.activeGamer()) return 'Я - ' + self.activeGamer().name;
+    self.iAmGamer = ko.pureComputed(function() {
+        return 'Я - ' + self.activeGamerName();
     });
 
-    self.greetingGamer = ko.computed(function() {
-        if (self.activeGamer())
-            return greet(self.activeGamer().name);
+    self.greetingGamer = ko.pureComputed(function() {
+        return greet(self.activeGamerName());
     });
 
-
-    self.init = function (gamers, tasks) {
-        self.gamers = ko.observableArray(gamers);
-        self.tasks = shuffle(tasks);
-
-        self.colorId(getRandomColorId());
-        self.activeGamer(self.gamers()[0]);
-        self.step('wait');
+    self.setNextGamer = function() {
+        var next = randomInt(self.gamers().length, except=self.activeGamerId());
+        self.activeGamerId(next);
     }
+
+    self.goWait = function() {
+        self.colorId(getRandomColorId());
+        self.setNextGamer();
+        self.step('wait');
+    };
+
+    self.goTask = function() {
+        self.activeTask(self.tasks.pop());
+        self.step('task');
+    };
+
+    self.goFail = function() {
+        // FIXME TO WINS
+        self.gamers()[self.activeGamerId()].wins.increment();
+        self.gamers()[self.activeGamerId()].status.push(new Status('ЛОХ', 5));
+        self.activeFail(self.fails.pop());
+        self.step('fail');
+    };
+
+    self.init = function(gamers, tasks, fails) {
+        self.gamers(gamers);
+        self.tasks = shuffle(tasks);
+        self.fails = shuffle(fails);
+
+        self.goWait();
+    };
 }
 
 var game = new gameModel();
@@ -93,33 +137,37 @@ $(document).ready(function() {
     $('#gamer0').val('Сергей');
     $('#gamer1').val('Михаил');
     $('#gamer2').val('Василий');
-    $('#btn-add-gamer')
-        .on('click', function() {
-            var id = parseInt($(this).attr('data-next-id'));
-            $('#start-gamer-form').append( startUserHtml(id));
-            $('html, body').animate({
-                scrollTop: $("#gamer"+id).offset().top
-            }, 1000);
-            $(this).attr('data-next-id', id+1);
-        });
-    $('#btn-start-game')
-        .on('click', function() {
-            var gamers = [];
-            $('.gamers').each(function(){
-                if (this.value) {
-                    gamers.push(new Gamer(this.value));
-                }
-            });
-            if (gamers.length <= 2) {
-                $('#gamer'+game.gamers.length).parent()
-                    .after('<div id="info" class="col-xs-10 text-inf" style="display: none"><p>Нужно больше игроков!</p></div>');
-                $('#info').slideDown(300).delay(1500).slideUp(500, function() {$('#info').remove();});
-                return;
+    $('#btn-add-gamer').on('click', function() {
+        var id = parseInt($(this).attr('data-next-id'));
+        $('#start-gamer-form').append( startUserHtml(id));
+        $('html, body').animate({
+            scrollTop: $("#gamer"+id).offset().top
+        }, 1000);
+        $(this).attr('data-next-id', id+1);
+    });
+    $('#btn-start-game').on('click', function() {
+        var gamers = [];
+        $('.gamers').each(function(){
+            if (this.value) {
+                gamers.push(new Gamer(this.value));
             }
-            $('#aligner').removeClass().addClass('aligner-tasks')
-                .height($('#main').height()-$('#btn-wrapper').height());
-            $('#start-gamer-form').parent().remove();
+        });
+        if (gamers.length <= 2) {
+            $('#gamer'+game.gamers.length).parent()
+                .after('<div id="info" class="col-xs-10 text-inf" style="display: none"><p>Нужно больше игроков!</p></div>');
+            $('#info').slideDown(300).delay(1500).slideUp(500, function() {$('#info').remove();});
+            return;
+        }
+        $('#aligner').removeClass().addClass('aligner-tasks')
+            .height($('#main').height()-$('#btn-wrapper').height());
+        $('#start-gamer-form').parent().remove();
 
-            game.init(gamers, data.fants);
-        })
+        game.init(gamers, data.fants, data.fails);
+    });
+    $('#players').on('click', function() {
+        $('#scores').fadeIn();
+    });
+    $('#scores .close').on('click', function() {
+        $('#scores').fadeOut();
+    });
 });
