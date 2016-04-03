@@ -40,7 +40,7 @@ function setFant(fant) {
 function Gamer(name) {
 	this.name = name;
 	this.wins = 0;
-	this.fails = 0;
+	this.statuses = [];
 };
 
 var game = {
@@ -51,7 +51,7 @@ var game = {
 	prepareRound: function() {
 		this.currentUser = randomInt(this.gamers.length);
 		prepareRound(
-			this.gamers[this.currentUser].name + ', тебе выпала честь выполнить следующее задание!', 
+			this.gamers[this.currentUser].name + ', тебе выпала честь выполнить следующее задание!',
 			 'Я - ' + this.gamers[this.currentUser].name + '!'
 		);
 	},
@@ -95,7 +95,7 @@ $(document).ready(function() {
 			if (game.gamers.length <= 2) {
 				$('#gamer'+game.gamers.length).parent()
 					.after('<div id="info" class="col-xs-10 text-inf" style="display: none"><p>Нужно больше игроков!</p></div>');
-				$('#info').slideDown(300).delay(15000).slideUp(500, function() {$('#info').remove();});
+				$('#info').slideDown(300).delay(1500).slideUp(500, function() {$('#info').remove();});
 				game.gamers = [];
 				return;
 			}
