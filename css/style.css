@@ -2,18 +2,19 @@ html, body {height: 100%}
 
 .color-back {background-color: white}
 .color-main {background-color: #3283C2} /* lightblue */
-.color-add-gamer {background-color: #59A2DA} 
-.color-start-game {background-color: #3A7CAF} 
-.color-win {background-color: #4063D6}
-.color-win-pressed {background-color: #2C4DB8} 
-.color-fail {background-color: #FF5136} 
-.color-fail-pressed {background-color: #DB3E25} 
-
-/* TODO pick and sistematize */
 .color-0 {background-color: #DD9728} /* golden */
 .color-1 {background-color: #3283C2} /* skylightblue*/
 .color-2 {background-color: #78A53C} /* green */
 .color-3 {background-color: #834D98} /* magenta (purple-gray) */
+
+#btn-add-gamer {background-color: #59A2DA}
+#btn-add-gamer:active {background-color: #296B9D}
+#btn-start-game {background-color: #3A7CAF}
+#btn-start-game:active {background-color: #296B9D}
+#btn-win {background-color: #4063D6}
+#btn-win:active {background-color: #2C4DB8}
+#btn-fail {background-color: #FF5136}
+#btn-fail:active {background-color: #DB3E25}
 
 .text-color-0 {color: #DD9728} /* golden */
 .text-color-1 {color: #3283C2} /* skylightblue*/
