@@ -2,13 +2,8 @@ ko.observable.fn.increment = function (value) {
     this(this() + (value || 1));
 };
 
-function randomInt(max, except=null) {
-    var res;
-    do {
-        res = Math.floor(Math.random() * max);
-    }
-    while(res == except);
-    return res;
+function randomInt(max) {
+    return Math.floor(Math.random() * max);
 };
 
 function getRandomColorId() {
@@ -55,16 +50,13 @@ function gameModel() {
     self.activeFail = ko.observable();
     self.activeGamerId = ko.observable();
 
-    self.activeGamerName = ko.pureComputed(function() {
-        return self.gamers()[self.activeGamerId()].name;
-    }, self);
 
     self.colorId = ko.observable();
     self.colorClass = ko.computed(function() {
-        return 'color-' + this.colorId();
+        return 'color-' + self.colorId();
     }, self);
     self.textClass = ko.computed(function() {
-        return 'text-color-' + this.colorId();
+        return 'text-color-' + self.colorId();
     }, self);
     self.alignerClass = ko.computed(function() {
         id = this.colorId();
@@ -73,16 +65,20 @@ function gameModel() {
         return 'color-' + id;
     }, self);
 
+    self.activeGamerName = ko.pureComputed(function() {
+        return self.gamers()[self.activeGamerId()].name;
+    }, self);
+
     self.iAmGamer = ko.pureComputed(function() {
         return 'Я - ' + self.activeGamerName();
-    });
+    }, self);
 
     self.greetingGamer = ko.pureComputed(function() {
         return greet(self.activeGamerName());
-    });
+    }, self);
 
     self.setNextGamer = function() {
-        var next = randomInt(self.gamers().length, except=self.activeGamerId());
+        var next = randomInt(self.gamers().length);
         self.activeGamerId(next);
     }
 
