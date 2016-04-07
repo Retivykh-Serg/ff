@@ -2,8 +2,12 @@ ko.observable.fn.increment = function (value) {
     this(this() + (value || 1));
 };
 
-function randomInt(max) {
-    return Math.floor(Math.random() * max);
+function randomInt(max, exclude) {
+    var res;
+    exclude = exclude || null;
+    do res = Math.floor(Math.random() * max);
+    while(res === exclude);
+    return res;
 };
 
 function getRandomColorId() {
@@ -39,16 +43,19 @@ function Status(text, rounds) {
     this.tick = function() {this.rounds--};
 }
 
-function gameModel() {
+function gameModel(gamers) {
     var self = this;
 
     self.tasks = [];
-    self.fails = []
+    self.fails = [];
+    self.gamers = gamers;
     self.step = ko.observable('start'); // start, wait, task, win, fail
-    self.gamers = ko.observableArray();
     self.activeTask = ko.observable();
     self.activeFail = ko.observable();
-    self.activeGamerId = ko.observable();
+    self.activeGamerId = ko.observable(0);
+    self.activeGamer = ko.computed(function() {
+        return self.gamers[self.activeGamerId()];
+    }, self);
 
 
     self.colorId = ko.observable();
@@ -65,21 +72,12 @@ function gameModel() {
         return 'color-' + id;
     }, self);
 
-    self.activeGamerName = ko.pureComputed(function() {
-        return self.gamers()[self.activeGamerId()].name;
-    }, self);
-
-    self.iAmGamer = ko.pureComputed(function() {
-        return 'Я - ' + self.activeGamerName();
-    }, self);
-
-    self.greetingGamer = ko.pureComputed(function() {
-        return greet(self.activeGamerName());
+    self.greetingGamer = ko.computed(function() {
+        return greet(self.activeGamer().name);
     }, self);
 
     self.setNextGamer = function() {
-        var next = randomInt(self.gamers().length);
-        self.activeGamerId(next);
+        self.activeGamerId(randomInt(self.gamers.length,  self.activeGamerId()));
     }
 
     self.goWait = function() {
@@ -95,23 +93,19 @@ function gameModel() {
 
     self.goFail = function() {
         // FIXME TO WINS
-        self.gamers()[self.activeGamerId()].wins.increment();
-        self.gamers()[self.activeGamerId()].status.push(new Status('ЛОХ', 5));
+        self.activeGamer().wins.increment();
+        self.activeGamer().status.push(new Status('ЛОХ', 5));
         self.activeFail(self.fails.pop());
         self.step('fail');
     };
 
-    self.init = function(gamers, tasks, fails) {
-        self.gamers(gamers);
+    self.init = function(tasks, fails) {
         self.tasks = shuffle(tasks);
         self.fails = shuffle(fails);
 
         self.goWait();
     };
 }
-
-var game = new gameModel();
-ko.applyBindings(game);
 
 //--------------------------------------------------
 
@@ -127,6 +121,8 @@ function startUserHtml(id) {
     return '<div class="form-group"><label class="col-xs-4 control-label">Игрок ' + (id+1) + '</label><div class="col-xs-7">' +
               '<input type="text" id="gamer' + id +'" class="form-control gamers" placeholder="Введите имя игрока"></div></div>'
 }
+
+var game;
 
 $(document).ready(function() {
     prepareUsers(6);
@@ -158,7 +154,9 @@ $(document).ready(function() {
             .height($('#main').height()-$('#btn-wrapper').height());
         $('#start-gamer-form').parent().remove();
 
-        game.init(gamers, data.fants, data.fails);
+        game = new gameModel(gamers);
+        ko.applyBindings(game);
+        game.init(data.fants, data.fails);
     });
     $('#players').on('click', function() {
         $('#scores').fadeIn();

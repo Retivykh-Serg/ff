@@ -1,7 +1,7 @@
 html, body {height: 100%}
 
 .color-back {background-color: white}
-.color-fail {background-color: #A94442}
+.color-fail {background-color: white}
 .color-main {background-color: #3283C2} /* lightblue */
 .color-0 {background-color: #DD9728} /* golden */
 .color-1 {background-color: #3283C2} /* skylightblue*/
@@ -16,7 +16,7 @@ html, body {height: 100%}
 #btn-win:active {background-color: #2C4DB8}
 #btn-fail {background-color: #FF5136}
 #btn-fail:active {background-color: #DB3E25}
-#btn-ok {background-color: #78A53C}
+#btn-ok {background-color: #AEBB37}
 #btn-ok:active {background-color: #89B64D}
 
 .text-color-0 {color: #DD9728} /* golden */
@@ -28,17 +28,18 @@ html, body {height: 100%}
 .aligner-gamers{height: auto; min-height: 100%}
 .aligner-tasks {display: flex; align-items: center; justify-content: center;}
 #players {position: absolute; right: 2vmin; top: 1vmin; font-size:3vmin;}
-#players img {width: 15vmin;}
+#players .stats-icon {font-size: 10vmin; padding: 1vmin;}
 #task, #prepare, #fail {position: relative; width: 90%; margin-top: -5vmin;}
 #gamers {padding-bottom: 11vmin; padding-top: 5vmin}
 .title {color: #FDDB6D; font-size: 11vmin; text-shadow: 1vmin 1vmin 1vmin #8D6B1D}
 .text {color: #EEECEC; font-size: 8vmin; text-shadow: 0.5vmin 0.5vmin 1vmin #555555}
+.text-fail {color: #A94442; font-weight: bold; font-size: 8vmin}
 .text-prepare {font-size: 9vmin; text-shadow: 0.3vmin 0.3vmin 0.5vmin #BBBBBB}
 .text-inf {color: #FFCC35; font-size: 6vmin; text-shadow: 0.5vmin 0.5vmin 1vmin #555555}
 
 #scores {position: absolute; z-index: 100; padding: 5vmin; width: 100%; height: auto; }
 #scores > div {position: relative; width: 100%; height: auto; border: 1vmin solid #EEE8EC; border-radius: 1vmin; background-color: #F3FAFC;}
-#scores .close {float: right; font-size: 10vmin; padding: 1vmin; color: #EEE8EC;}
+#scores .close {float: right; font-size: 8vmin; padding: 1vmin; color: #EEE8EC;}
 #scores > div > p {width: 100%; background-color: #3283C2; text-align: center; padding: 1vmin; font-size: 7vmin; color: #EEE8EC; margin: 0;}
 
 #btn-wrapper {color: #FCFEFF;  position: fixed; bottom: 0%; width: 100%; background: #EEE8EC}
