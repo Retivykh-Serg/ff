@@ -57,6 +57,14 @@ function gameModel(gamers) {
         return self.gamers[self.activeGamerId()];
     }, self);
 
+    self.sortGamers = ko.computed(function() {
+        return self.gamers.sort(function(a,b) {
+            if (a.wins() > b.wins()) return -1;
+            if (a.wins() < b.wins()) return 1;
+            return 0;
+        });
+    }, self);
+
 
     self.colorId = ko.observable();
     self.colorClass = ko.computed(function() {
@@ -69,6 +77,7 @@ function gameModel(gamers) {
         id = this.colorId();
         if (self.step() == 'wait') id = 'back';
         if (self.step() == 'fail') id = 'fail';
+        if (self.step() == 'win') id = 'win';
         return 'color-' + id;
     }, self);
 
@@ -76,13 +85,15 @@ function gameModel(gamers) {
         return greet(self.activeGamer().name);
     }, self);
 
-    self.setNextGamer = function() {
-        self.activeGamerId(randomInt(self.gamers.length,  self.activeGamerId()));
+    self.setNextGamer = function(gamer) {
+        var new_id = gamer ? self.gamers.indexOf(gamer)
+            : randomInt(self.gamers.length,  self.activeGamerId());
+        self.activeGamerId(new_id);
     }
 
-    self.goWait = function() {
+    self.goWait = function(gamer) {
         self.colorId(getRandomColorId());
-        self.setNextGamer();
+        self.setNextGamer(gamer instanceof Gamer ? gamer : null);
         self.step('wait');
     };
 
@@ -91,9 +102,14 @@ function gameModel(gamers) {
         self.step('task');
     };
 
+    self.goWin = function() {
+        self.activeGamer().wins.increment();
+
+        self.step('win');
+    }
+
     self.goFail = function() {
         // FIXME TO WINS
-        self.activeGamer().wins.increment();
         self.activeGamer().status.push(new Status('ЛОХ', 5));
         self.activeFail(self.fails.pop());
         self.step('fail');
@@ -129,6 +145,8 @@ $(document).ready(function() {
     $('#gamer0').val('Сергей');
     $('#gamer1').val('Михаил');
     $('#gamer2').val('Василий');
+    $('#gamer3').val('Анатолий');
+    $('#gamer4').val('Алексей Сергеевич');
     $('#btn-add-gamer').on('click', function() {
         var id = parseInt($(this).attr('data-next-id'));
         $('#start-gamer-form').append( startUserHtml(id));

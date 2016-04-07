@@ -14,7 +14,7 @@
 				<p>Статистика игры <span class="glyphicon glyphicon-remove close" aria-label="X"></span></p>
 				<table class="table table-striped table-condensed">
 				    <thead><tr><th>Игрок</th><th>Очки</th></thead>
-				    <tbody data-bind="foreach: gamers">
+				    <tbody data-bind="foreach: sortGamers()">
 				        <tr>
 								  <td>
 											<span data-bind="text: name"></span>
@@ -22,7 +22,7 @@
 												<li data-bind="text: text"></li>
 											</ul>
 									</td>
-									<td data-bind="text: wins"></td>
+									<td><b data-bind="text: wins"></b></td>
 								</tr>
 						</tbody>
 				</table>
@@ -45,7 +45,17 @@
 				</div>
 
 				<div id="fail" data-bind="if: activeFail(), visible: step() == 'fail'">
-					<p id="fant-text" class="text-fail" data-bind="text:activeFail().text"></p>
+					<p class="text-fail" data-bind="text:activeFail().text"></p>
+				</div>
+
+				<div id="win" data-bind="visible: step() == 'win'" style="display: none">
+					<p class="text-win">Блестяще! Выбери, кто будет следующим!</p>
+					<br><br>
+					<div class="flex-container" data-bind="foreach: gamers">
+						<div class="gamer-button">
+							<span data-bind="text: name, click: $parent.goWait"></span>
+						</div>
+					</div>
 				</div>
 
 			</div>
@@ -56,11 +66,12 @@
 			<div id="btn-add-gamer" data-bind="visible: step() == 'start'">Еще игрок</div>
 			<div id="btn-start-game" data-bind="visible: step() == 'start'">Поехали!</div>
 			<div id="btn-fail" data-bind="visible: step() == 'task', click: goFail" style="display: none">Провал</div>
-			<div id="btn-win" data-bind="visible: step() == 'task'" style="display: none">Успех</div>
+			<div id="btn-win" data-bind="visible: step() == 'task', click: goWin" style="display: none">Успех</div>
 			<div id="btn-user" data-bind="visible: step() == 'wait', css: colorClass, click: goTask" style="display: none">
 				<span data-bind="text: 'Я - ' + activeGamer().name"></span>
 			</div>
-			<div id="btn-ok" data-bind="visible: step() == 'fail', click: goWait" style="display: none">Готово!</div>
+			<div id="btn-ok" data-bind="visible: step() == 'fail', click: goWait" style="display: none">Отработано!</div>
+			<div id="btn-ok2" data-bind="visible: step() == 'win', click: goWait" style="display: none">Вы восхитительны!</div>
 		</div>
 
 		<script type="text/javascript" src="js/knockout.js"></script>
