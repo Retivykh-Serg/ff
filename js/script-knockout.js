@@ -2,27 +2,28 @@ ko.observable.fn.increment = function (value) {
     this(this() + (value || 1));
 };
 
+Array.prototype.shuffle  = function(){
+    var j, x, i;
+    var res = this.slice();
+    for (i = this.length; i; i -= 1) {
+        j = Math.floor(Math.random() * i);
+        x = res[i - 1];
+        res[i - 1] = res[j];
+        res[j] = x;
+    }
+    return res;
+};
+
 function randomInt(max, exclude) {
     var res;
     exclude = exclude || null;
     do res = Math.floor(Math.random() * max);
     while(res === exclude);
     return res;
-};
+}
 
 function getRandomColorId() {
     return randomInt(4);
-}
-
-function shuffle(a) {
-    var j, x, i;
-    for (i = a.length; i; i -= 1) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
-    }
-    return a;
 }
 
 function greet(name) {
@@ -33,14 +34,14 @@ function greet(name) {
 
 function Gamer(name) {
     this.name = name;
-    this.wins = ko.observable(0);;
+    this.wins = ko.observable(0);
     this.status = ko.observableArray([]);
-};
+}
 
 function Status(text, rounds) {
     this.text = text;
     this.rounds = rounds;
-    this.tick = function() {this.rounds--};
+    this.tick = function() {this.rounds--;};
 }
 
 function gameModel(gamers) {
@@ -63,6 +64,10 @@ function gameModel(gamers) {
             if (a.wins() < b.wins()) return 1;
             return 0;
         });
+    }, self);
+
+    self.randomGamers = ko.computed(function() {
+        return self.gamers.shuffle();
     }, self);
 
 
@@ -89,7 +94,7 @@ function gameModel(gamers) {
         var new_id = gamer ? self.gamers.indexOf(gamer)
             : randomInt(self.gamers.length,  self.activeGamerId());
         self.activeGamerId(new_id);
-    }
+    };
 
     self.goWait = function(gamer) {
         self.colorId(getRandomColorId());
@@ -106,7 +111,7 @@ function gameModel(gamers) {
         self.activeGamer().wins.increment();
 
         self.step('win');
-    }
+    };
 
     self.goFail = function() {
         // FIXME TO WINS
@@ -116,8 +121,8 @@ function gameModel(gamers) {
     };
 
     self.init = function(tasks, fails) {
-        self.tasks = shuffle(tasks);
-        self.fails = shuffle(fails);
+        self.tasks = tasks.shuffle();
+        self.fails = fails.shuffle();
 
         self.goWait();
     };
@@ -135,14 +140,17 @@ function prepareUsers(num) {
 
 function startUserHtml(id) {
     return '<div class="form-group"><label class="col-xs-4 control-label">Игрок ' + (id+1) + '</label><div class="col-xs-7">' +
-              '<input type="text" id="gamer' + id +'" class="form-control gamers" placeholder="Введите имя игрока"></div></div>'
+              '<input type="text" id="gamer' + id +'" class="form-control gamers" placeholder="Введите имя игрока"></div></div>';
 }
 
 var game;
 
 $(document).ready(function() {
+    if (navigator.userAgent.search('Windows Phone') > 0) {
+
+    }
     prepareUsers(6);
-    $('#gamer0').val('Сергей');
+    $('#gamer0').val('Супер Сергей');
     $('#gamer1').val('Михаил');
     $('#gamer2').val('Василий');
     $('#gamer3').val('Анатолий');

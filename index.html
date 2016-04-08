@@ -51,9 +51,9 @@
 				<div id="win" data-bind="visible: step() == 'win'" style="display: none">
 					<p class="text-win">Блестяще! Выбери, кто будет следующим!</p>
 					<br><br>
-					<div class="flex-container" data-bind="foreach: gamers">
-						<div class="gamer-button">
-							<span data-bind="text: name, click: $parent.goWait"></span>
+					<div class="flex-container" data-bind="foreach: sortGamers">
+						<div class="gamer-button" data-bind="click: $parent.goWait">
+							<span data-bind="text: name"></span>
 						</div>
 					</div>
 				</div>
