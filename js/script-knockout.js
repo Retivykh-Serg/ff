@@ -2,6 +2,10 @@ ko.observable.fn.increment = function (value) {
     this(this() + (value || 1));
 };
 
+ko.observable.fn.decrement = function (value) {
+    this(this() - (value || 1));
+};
+
 Array.prototype.shuffle  = function(){
     var j, x, i;
     var res = this.slice();
@@ -40,8 +44,12 @@ function Gamer(name) {
 
 function Status(text, rounds) {
     this.text = text;
-    this.rounds = rounds;
-    this.tick = function() {this.rounds--;};
+    this.roundsLeft = ko.observable(rounds);
+
+    this.tick = function() {
+        this.roundsLeft.decrement();
+        return this.roundsLeft() === 0 ? this.text : null;
+    };
 }
 
 function gameModel(gamers) {
@@ -59,7 +67,8 @@ function gameModel(gamers) {
     }, self);
 
     self.sortGamers = ko.computed(function() {
-        return self.gamers.sort(function(a,b) {
+        var gm = self.gamers.slice();
+        return gm.sort(function(a,b) {
             if (a.wins() > b.wins()) return -1;
             if (a.wins() < b.wins()) return 1;
             return 0;
@@ -96,7 +105,23 @@ function gameModel(gamers) {
         self.activeGamerId(new_id);
     };
 
+    self.tickRounds = function() {
+        var expired = [];
+        for(var i=0; i<self.gamers.length; i++) {
+            var statuses = self.gamers[i].status();
+            for(var j=0; j < statuses.length; j++) {
+                st = statuses[j].tick();
+                if (st) {
+                    self.gamers[i].status.splice(j, 1);
+                    expired.push({'gamer': self.gamers[i].name, 'status': st});
+                }
+            }
+        }
+        console.log(expired);
+    };
+
     self.goWait = function(gamer) {
+        self.tickRounds();
         self.colorId(getRandomColorId());
         self.setNextGamer(gamer instanceof Gamer ? gamer : null);
         self.step('wait');
@@ -109,14 +134,17 @@ function gameModel(gamers) {
 
     self.goWin = function() {
         self.activeGamer().wins.increment();
-
         self.step('win');
     };
 
     self.goFail = function() {
-        // FIXME TO WINS
-        self.activeGamer().status.push(new Status('ЛОХ', 5));
         self.activeFail(self.fails.pop());
+        if (self.activeFail().status) {
+            self.activeGamer().status.push(
+                //hack +1 cause rounds decrement goes in next goWait phase
+                new Status(self.activeFail().status, self.activeFail().rounds + 1)
+            );
+        }
         self.step('fail');
     };
 

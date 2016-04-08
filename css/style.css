@@ -48,10 +48,10 @@ html, body {height: 100%}
 #scores .close {float: right; margin: 2vmin; max-width: 6vmin; color: #EEE8EC;}
 #scores > div > p {width: 100%; background-color: #3283C2; text-align: center; padding: 1vmin; font-size: 7vmin; color: #EEE8EC; margin: 0;}
 #scores .table {font-size: 5vmin; color: #104E7E;}
-#scores .table th {padding-left: 7vmin; border-bottom: 0.75vmin solid #3283C2}
-#scores .table td {padding: 1vmin 0 0 5vmin; vertical-align: middle}
-#scores .table td:last-child {width: 15%; text-align: center;}
-#scores .table td ul {color: #A94442; font-size: 4vmin; margin-bottom: 0;}
+#scores .table th {text-align: center; border-bottom: 0.75vmin solid #3283C2}
+#scores .table td:last-child {width: 10%; vertical-align: middle; text-align: center;}
+#scores .table td > span {margin-left: 5vmin}
+#scores .table td ul {color: #A94442; font-size: 3vmin; margin-bottom: 0; padding-left: 5vmin;}
 
 #btn-wrapper {color: #FCFEFF;  position: fixed; bottom: 0%; width: 100%; background: #EEE8EC}
 #btn-wrapper div {cursor: pointer; font-size: 8vmin; border: 1vmin solid #EEE8EC; width: 50%; text-align: center; display: inline-block}

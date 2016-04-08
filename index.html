@@ -19,7 +19,10 @@
 								  <td>
 											<span data-bind="text: name"></span>
 											<ul data-bind="foreach: status">
-												<li data-bind="text: text"></li>
+												<li>
+													<span data-bind="text: text"></span>
+													<b data-bind="text: ' (' + roundsLeft() + ')'"></b>
+												</li>
 											</ul>
 									</td>
 									<td><b data-bind="text: wins"></b></td>
