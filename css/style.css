@@ -28,8 +28,8 @@ html, body {height: 100%}
 #main {color: #EEE8EC; height: 100%; position: relative; border: 1vmin solid #EEE8EC; border-bottom: 0px; text-align: center}
 .aligner-gamers{height: auto; min-height: 100%}
 .aligner-tasks {display: flex; align-items: center; justify-content: center;}
-#players {position: absolute; right: 2vmin; top: 1vmin; font-size:3vmin; max-width: 20vmin;}
-#players .stats-icon {font-size: 10vmin; padding: 1vmin;}
+#players {position: absolute; right: 2vmin; top: 1vmin; font-size:3vmin; max-width: 20vmin; color: white;}
+#players .stats-icon {margin: 1vmin; max-width:12vmin;}
 #task, #prepare, #fail, #win {position: relative; width: 90%; margin-top: -5vmin;}
 #gamers {padding-bottom: 11vmin; padding-top: 5vmin}
 .title {color: #FDDB6D; font-size: 11vmin; text-shadow: 1vmin 1vmin 1vmin #8D6B1D}
@@ -45,7 +45,7 @@ html, body {height: 100%}
 
 #scores {position: absolute; z-index: 100; padding: 5vmin; width: 100%; height: auto; }
 #scores > div {position: relative; width: 100%; height: auto; border: 1vmin solid #EEE8EC; border-radius: 1vmin; background-color: #F3FAFC;}
-#scores .close {float: right; font-size: 8vmin; padding: 1vmin; color: #EEE8EC;}
+#scores .close {float: right; margin: 2vmin; max-width: 6vmin; color: #EEE8EC;}
 #scores > div > p {width: 100%; background-color: #3283C2; text-align: center; padding: 1vmin; font-size: 7vmin; color: #EEE8EC; margin: 0;}
 #scores .table {font-size: 5vmin; color: #104E7E;}
 #scores .table th {padding-left: 7vmin; border-bottom: 0.75vmin solid #3283C2}
