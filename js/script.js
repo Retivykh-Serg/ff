@@ -58,7 +58,7 @@ function gameModel(gamers) {
     self.tasks = [];
     self.fails = [];
     self.gamers = gamers;
-    self.step = ko.observable('start'); // start, wait, task, win, fail, gamers-info
+    self.step = ko.observable('start'); // start, wait, task, win, fail, gamers-info, prepare-task
     self.activeTask = ko.observable();
     self.activeFail = ko.observable();
     self.activeGamerId = ko.observable(0);
@@ -90,7 +90,7 @@ function gameModel(gamers) {
     }, self);
     self.backClass = ko.computed(function() {
         id = this.colorId();
-        if (['wait', 'fail', 'win', 'gamers-info'].indexOf(self.step()) >= 0) id = 'back';
+        if (['wait', 'fail', 'win', 'gamers-info', 'prepare-task'].indexOf(self.step()) >= 0) id = 'back';
         return 'color-' + id;
     }, self);
 
@@ -129,15 +129,21 @@ function gameModel(gamers) {
 
     self.goWait = function(gamer) {
         self.step('wait');
-        if (!self.tasks.length) self.tasks = data.fants.shuffle();
-        if (!self.fails.length) self.fails = data.fails.shuffle();
         self.colorId(getRandomColorId());
         self.setNextGamer(gamer instanceof Gamer ? gamer : null);
     };
 
+    self.goPrepareTask = function() {
+        self.step('prepare-task');
+        self.activeTask(self.tasks.pop());
+        if (!self.tasks.length) self.tasks = data.fants.shuffle();
+        if (!self.activeTask().require) {
+            self.goTask();
+        }
+    };
+
     self.goTask = function() {
         self.step('task');
-        self.activeTask(self.tasks.pop());
     };
 
     self.goWin = function() {
@@ -154,6 +160,7 @@ function gameModel(gamers) {
                 new Status(self.activeFail().status, self.activeFail().rounds + 1)
             );
         }
+        if (!self.fails.length) self.fails = data.fails.shuffle();
     };
 
     self.init = function(tasks, fails) {

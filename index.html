@@ -47,6 +47,12 @@
 					<p class="text-prepare"  data-bind="text: greetingGamer, css: textClass"></p>
 				</div>
 
+				<div id="prepare-task" data-bind="if: activeTask(), visible: step() == 'prepare-task'" style="display: none">
+					<p class="text-require" data-bind="css: textClass">Для выполнения следующего задания тебе понадобится
+						<b data-bind="text: activeTask().require"></b	>.
+					</p>
+				</div>
+
 				<div id="fail" data-bind="if: activeFail(), visible: step() == 'fail'">
 					<p class="text-fail" data-bind="text:activeFail().text"></p>
 				</div>
@@ -78,11 +84,17 @@
 		<div id="btn-wrapper" class="text">
 			<div id="btn-add-gamer" data-bind="visible: step() == 'start'">Еще игрок</div>
 			<div id="btn-start-game" data-bind="visible: step() == 'start'">Поехали!</div>
+
 			<div id="btn-fail" data-bind="visible: step() == 'task', click: goFail" style="display: none">Провал</div>
 			<div id="btn-win" data-bind="visible: step() == 'task', click: goWin" style="display: none">Успех</div>
-			<div id="btn-user" data-bind="visible: step() == 'wait', css: colorClass, click: goTask" style="display: none">
+
+			<div id="btn-user" data-bind="visible: step() == 'wait', css: colorClass, click: goPrepareTask" style="display: none">
 				<span data-bind="text: 'Я - ' + activeGamer().name"></span>
 			</div>
+
+			<div id="btn-skip" data-bind="visible: step() == 'prepare-task', css: colorClass, click: goPrepareTask" style="display: none">Пропустить</div>
+			<div id="btn-go" data-bind="visible: step() == 'prepare-task', css: colorClass, click: goTask" style="display: none">Я готов!</div>
+
 			<div id="btn-fail-ok" data-bind="visible: step() == 'fail', click: goGamersInfo" style="display: none">Отработано!</div>
 			<div id="btn-win-ok" data-bind="visible: step() == 'win', click: goGamersInfo" style="display: none">Вы восхитительны!</div>
 			<div id="btn-info-ok" data-bind="visible: step() == 'gamers-info', click: goWait" style="display: none">Отлично!</div>
