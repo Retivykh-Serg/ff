@@ -32,8 +32,8 @@
 			</div>
 		</div>
 
-		<div id="main" class="color-main">
-			<div id="aligner"  data-bind="css: alignerClass" class="aligner-gamers">
+		<div id="main" data-bind="css: backClass" class="color-main">
+			<div id="aligner" class="aligner-gamers">
 				<span id="players" data-bind="visible: step() != 'start'" style="display: none">
 					<img src="img/stats.png" class="stats-icon"><br>
 					<b data-bind="text: activeGamer().name"></b></span>
@@ -61,6 +61,16 @@
 					</div>
 				</div>
 
+				<div id="gamers-info" data-bind="visible: step() == 'gamers-info'" style="display: none">
+						<p class="text-info">Ура! Закончилось действие статусов:</p>
+						<ul class="status-expired" data-bind=" foreach: gameMessages">
+							<li>
+								<span data-bind="text: gamer + ':'"></span>
+								<span data-bind="text: status"></span>
+							</li>
+						</ul>
+				</div>
+
 			</div>
 		</div>
 
@@ -73,13 +83,14 @@
 			<div id="btn-user" data-bind="visible: step() == 'wait', css: colorClass, click: goTask" style="display: none">
 				<span data-bind="text: 'Я - ' + activeGamer().name"></span>
 			</div>
-			<div id="btn-ok" data-bind="visible: step() == 'fail', click: goWait" style="display: none">Отработано!</div>
-			<div id="btn-ok2" data-bind="visible: step() == 'win', click: goWait" style="display: none">Вы восхитительны!</div>
+			<div id="btn-fail-ok" data-bind="visible: step() == 'fail', click: goGamersInfo" style="display: none">Отработано!</div>
+			<div id="btn-win-ok" data-bind="visible: step() == 'win', click: goGamersInfo" style="display: none">Вы восхитительны!</div>
+			<div id="btn-info-ok" data-bind="visible: step() == 'gamers-info', click: goWait" style="display: none">Отлично!</div>
 		</div>
 
 		<script type="text/javascript" src="js/knockout.js"></script>
 		<script type="text/javascript" src="js/jquery-1.12.0.min.js"></script>
 		<script type="text/javascript" src="data.json"></script>
-		<script type="text/javascript" src="js/script-knockout.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
 	</body>
 </html>
