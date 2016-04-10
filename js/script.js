@@ -173,6 +173,24 @@ function gameModel(gamers) {
 
 //--------------------------------------------------
 
+function timer(duration){
+    var elem = $("#timer");
+    var timeLeft = duration;
+
+    function pad(n) {
+        return (n < 10) ? ("0" + n) : n;
+    }
+
+    var timer = setInterval(function(){
+        timeLeft -= 0.2;
+        elem.html(pad(timeLeft.toFixed(1)));
+        if(timeLeft < 0.1 ){
+            clearInterval(timer);
+            elem.html('00.0');
+        }
+    }, 200);
+}
+
 function prepareUsers(num) {
     $('#aligner').prepend('<div id="gamers" class="color-main"><form class="form-horizontal" id="start-gamer-form"></form></div>');
     $('#btn-add-gamer').attr('data-next-id', num);

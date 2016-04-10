@@ -34,6 +34,11 @@
 
 		<div id="main" data-bind="css: backClass" class="color-main">
 			<div id="aligner" class="aligner-gamers">
+				<div id="timer-wrapper" style="display: none">
+					<span id="timer">60.0</span>
+					<span id="timer-start" data-bind="css: textClass">Начали!</span>
+				</div>
+
 				<span id="players" data-bind="visible: step() != 'start'" style="display: none">
 					<img src="img/stats.png" class="stats-icon"><br>
 					<b data-bind="text: activeGamer().name"></b></span>
