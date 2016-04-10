@@ -119,18 +119,18 @@ function gameModel(gamers) {
         self.gameMessages(expired);
     };
 
-    self.goGamersInfo = function() {
+    self.goGamersInfo = function(gamer) {
         self.step('gamers-info');
         self.tickRounds();
+        self.setNextGamer(gamer instanceof Gamer ? gamer : null);
         if (!self.gameMessages().length) {
-            self.goWait();
+            self.goWait(gamer);
         }
     };
 
-    self.goWait = function(gamer) {
+    self.goWait = function() {
         self.step('wait');
         self.colorId(getRandomColorId());
-        self.setNextGamer(gamer instanceof Gamer ? gamer : null);
     };
 
     self.goPrepareTask = function() {
